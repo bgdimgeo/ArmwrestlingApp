@@ -25,6 +25,9 @@ namespace ArmwrestlingApp.Models
         [ForeignKey(nameof(TeamId))]
         public Team Team { get; set; } = null!;
 
+        [Comment("Competitor is deleted")]
+        public bool IsDeleted { get; set; } = false;
+
         public IEnumerable<CompetitionCategorieCompetitor> CompetitionCategoriesCompetitors { get; set; }
             = new HashSet<CompetitionCategorieCompetitor>();
 

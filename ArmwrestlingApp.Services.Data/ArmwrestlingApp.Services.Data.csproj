@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ArmwrestlingApp.Data\ArmwrestlingApp.Data.csproj" />
+    <ProjectReference Include="..\ArmwrestlingApp.ViewModels\ArmwrestlingApp.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

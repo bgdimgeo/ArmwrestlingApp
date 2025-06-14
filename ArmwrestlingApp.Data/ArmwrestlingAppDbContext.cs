@@ -26,6 +26,7 @@ namespace ArmwrestlingApp.Data
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Competition> Competitions { get; set; }
         public virtual DbSet<CompetitionCategorie> CompetitionsCategories { get; set; }
+        public virtual DbSet<CompetitionCategorieCompetitor> CompetitionCategorieCompetitors { get; set; }
         public virtual DbSet<Competitor> Competitors { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

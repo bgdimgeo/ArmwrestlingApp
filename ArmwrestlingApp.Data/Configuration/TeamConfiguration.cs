@@ -9,13 +9,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ArmwrestlingApp.Data.Configuration
 {
-    public class CompetitionCompetitorConfiguration : IEntityTypeConfiguration<CompetitionCategorie>
+    internal class TeamConfiguration : IEntityTypeConfiguration<Team>
     {
-        public void Configure(EntityTypeBuilder<CompetitionCategorie> builder)
+        public void Configure(EntityTypeBuilder<Team> builder)
         {
-            builder.HasKey(c => new { c.CategoryId, c.CompetitionId });
             builder.HasQueryFilter(c => !c.IsDeleted);
-
         }
     }
 }

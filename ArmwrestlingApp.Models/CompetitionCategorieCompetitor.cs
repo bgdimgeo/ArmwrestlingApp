@@ -38,5 +38,8 @@ namespace ArmwrestlingApp.Models
         public int Loses { get; set; }
         [Comment("Number used for the draw in the category")]
         public int DrawNumber { get; set; }
+
+        [Comment("Category is deleted")]
+        public bool IsDeleted { get; set; } = false;
     }
 }

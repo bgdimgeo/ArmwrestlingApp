@@ -21,6 +21,9 @@ namespace ArmwrestlingApp.Models
         [Comment("Category name")]
         public string Name { get; set; } = null!;
 
+        [Comment("Category is deleted")]
+        public bool IsDeleted { get; set; } = false;
+
 
         public IEnumerable<CompetitionCategorieCompetitor> CompetitionCategoriesCompetitors { get; set; }
             = new HashSet<CompetitionCategorieCompetitor>();

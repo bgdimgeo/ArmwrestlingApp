@@ -15,6 +15,7 @@ namespace ArmwrestlingApp.Data.Configuration
         {
             builder.Property(c => c.Changer_id).IsRequired(false);
             builder.Property(c => c.LastChangeDate).IsRequired(false);
+            builder.HasQueryFilter(c => !c.IsDeleted );
         }
     }
 }

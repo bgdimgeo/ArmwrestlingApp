@@ -11,5 +11,9 @@ namespace ArmwrestlingApp.Models
         [Required]
         [Comment("Name of the Team")]
         public string Name { get; set; } = null!;
+
+
+        [Comment("Team")]
+        public bool IsDeleted { get; set; } = false;
     }
 }

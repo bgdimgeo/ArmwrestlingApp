@@ -22,7 +22,10 @@ namespace ArmwrestlingApp.Models
         [Comment("Entry fee for the category")]
         public decimal EntryFee { get; set; }
 
-        public virtual bool Finished { get; set; } = false;
+        public  bool Finished { get; set; } = false;
+
+        [Comment("Category is deleted")]
+        public bool IsDeleted { get; set; } = false;
 
     }
 }
