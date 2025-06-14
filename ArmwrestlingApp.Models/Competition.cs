@@ -75,6 +75,9 @@ namespace ArmwrestlingApp.Models
         [Comment("Competion is finished")]
         public bool Finished { get; set; } = false;
 
+        [Required]
+        public DateOnly Date { get; set; }
+
         public IEnumerable<CompetitionCategorieCompetitor> CompetitionCategoriesCompetitors { get; set; }
             = new HashSet<CompetitionCategorieCompetitor>();
         public IEnumerable<CompetitionCategorie> CompetitionsCategories { get; set; }

@@ -35,6 +35,16 @@ namespace ArmwrestlingApp
                 .AddSignInManager<SignInManager<ApplicationUser>>()
                 .AddUserManager<UserManager<ApplicationUser>>();
 
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.Cookie.Name = ".AspNetCore.Identity.Application";
+                cfg.Cookie.SameSite = SameSiteMode.Lax;
+                cfg.ExpireTimeSpan = TimeSpan.FromHours(1);  // Set an appropriate expiration time
+                cfg.SlidingExpiration = true; // Refresh the cookie when the user is active
+                cfg.LoginPath = "/Identity/Account/Login";
+                cfg.LogoutPath = "/Identity/Account/Logout";
+            });
+
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddRazorPages();

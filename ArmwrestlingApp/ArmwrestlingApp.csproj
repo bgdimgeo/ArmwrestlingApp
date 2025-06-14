@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -21,6 +21,9 @@
     <ProjectReference Include="..\ArmwrestlingApp.Common\ArmwrestlingApp.Common.csproj" />
     <ProjectReference Include="..\ArmwrestlingApp.Data\ArmwrestlingApp.Data.csproj" />
     <ProjectReference Include="..\ArmwrestlingApp.Models\ArmwrestlingApp.Models.csproj" />
+    <ProjectReference Include="..\ArmwrestlingApp.Services.Data\ArmwrestlingApp.Services.Data.csproj" />
+    <ProjectReference Include="..\ArmwrestlingApp.ViewModels\ArmwrestlingApp.ViewModels.csproj" />
+    <ProjectReference Include="..\ArmwrestlingApp.Web.Infrastructure\ArmwrestlingApp.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

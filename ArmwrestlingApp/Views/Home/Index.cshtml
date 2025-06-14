@@ -1,8 +1,115 @@
 ﻿@{
-    ViewData["Title"] = "Armwrestling App";
+    ViewData["Title"] = "Armwrestling Tournaments App";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@using ArmwrestlingApp.ViewModels.Competition;
+
+@model CompetitionListViewModel
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+
+    <div class="row">
+        <!-- Past Competitions Section -->
+        <div class="col-12">
+            <h2>Past Competitions</h2>
+            <div class="scrollable-container">
+                @if (Model.PastCompetitions.Any())
+                {
+                    <div class="scrollable-list">
+                        @foreach (var competition in Model.PastCompetitions)
+                        {
+                            <a class="competition-card" href="@Url.Action("Details", "Competition", new { id = competition.Id })">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@competition.Name</h5>
+                                        <p class="card-text">@competition.Date.ToString("MMMM dd, yyyy")</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p>No past competitions available.</p>
+                }
+            </div>
+        </div>
+
+        <!-- Future Competitions Section -->
+        <div class="col-12">
+            <h2>Future Competitions</h2>
+            <div class="scrollable-container">
+                @if (Model.FutureCompetitions.Any())
+                {
+                    <div class="scrollable-list">
+                        @foreach (var competition in Model.FutureCompetitions)
+                        {
+                            <a class="competition-card" href="@Url.Action("Details", "Competition", new { id = competition.Id })">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@competition.Name</h5>
+                                        <p class="card-text">@competition.Date.ToString("MMMM dd, yyyy")</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p>No future competitions available.</p>
+                }
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    /* Scrollable container */
+    .scrollable-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 20px; /* Ensure there's space for the scrollbar */
+    }
+
+    .scrollable-list {
+        display: flex;
+        gap: 20px;
+    }
+
+    /* Competition card */
+    .competition-card {
+        display: inline-block;
+        width: 250px;
+        height: 150px;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .card {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-title {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .card-text {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
