@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
+using ArmwrestlingApp.Web.Infrastructure.Extensions;
+using ArmwrestlingApp.Services.Data.Interfaces;
+
 namespace ArmwrestlingApp
 {
     public class Program
@@ -20,8 +23,12 @@ namespace ArmwrestlingApp
             builder.Services.AddDbContext<ArmwrestlingAppDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            builder.Services.RegisterRepositories(typeof(ApplicationUser).Assembly);
+            builder.Services.RegisterUserDefinedServices(typeof(ICompetitionService).Assembly);
+
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
 
             builder.Services
@@ -34,6 +41,9 @@ namespace ArmwrestlingApp
                 .AddDefaultTokenProviders()
                 .AddSignInManager<SignInManager<ApplicationUser>>()
                 .AddUserManager<UserManager<ApplicationUser>>();
+
+            // Register IHttpContextAccessor in order to access the http request data in the sercice 
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.ConfigureApplicationCookie(cfg =>
             {

@@ -12,5 +12,7 @@ namespace ArmwrestlingApp.Services.Data.Interfaces
          Task<CompetitionViewModel> GetCompetitionDetailsByIdAsync(Guid id);
 
         Task<IEnumerable<CompetitionViewModel>> IndexGetAllOrderedByDateAsync();
+
+        Task<bool> AddCompetitionAsync(CompetitionCreateViewModel model);
     }
 }
