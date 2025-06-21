@@ -24,7 +24,7 @@ namespace ArmwrestlingApp.Models
 
         public  bool Finished { get; set; } = false;
 
-        [Comment("Category is deleted")]
+        [Comment("Not assigned")]
         public bool IsDeleted { get; set; } = false;
 
     }

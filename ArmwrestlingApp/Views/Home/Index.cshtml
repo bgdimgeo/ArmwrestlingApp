@@ -1,115 +1,56 @@
 ﻿@{
-    ViewData["Title"] = "Armwrestling Tournaments App";
+    ViewData["Title"] = "Welcome to ArmwrestlingApp";
 }
 
-@using ArmwrestlingApp.ViewModels.Competition;
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Welcome to Armwrestling Tournaments App</h1>
+        <p class="lead">Track, join, and organize armwrestling competitions across the world.</p>
+        <a asp-controller="Competition" asp-action="All" class="btn btn-primary btn-lg mt-3">
+            Browse Competitions
+        </a>
+    </div>
 
-@model CompetitionListViewModel
-<div class="container">
-    <h1>@ViewData["Title"]</h1>
-
-    <div class="row">
-        <!-- Past Competitions Section -->
-        <div class="col-12">
-            <h2>Past Competitions</h2>
-            <div class="scrollable-container">
-                @if (Model.PastCompetitions.Any())
-                {
-                    <div class="scrollable-list">
-                        @foreach (var competition in Model.PastCompetitions)
-                        {
-                            <a class="competition-card" href="@Url.Action("Details", "Competition", new { id = competition.Id })">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@competition.Name</h5>
-                                        <p class="card-text">@competition.Date.ToString("MMMM dd, yyyy")</p>
-                                    </div>
-                                </div>
-                            </a>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <p>No past competitions available.</p>
-                }
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <i class="fas fa-trophy fa-3x mb-3 text-primary"></i>
+                    <h5 class="card-title">Upcoming Tournaments</h5>
+                    <p class="card-text">View upcoming armwrestling tournaments and register to compete.</p>
+                    <a asp-controller="Competition" asp-action="All" class="btn btn-outline-primary">
+                        View Events
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Future Competitions Section -->
-        <div class="col-12">
-            <h2>Future Competitions</h2>
-            <div class="scrollable-container">
-                @if (Model.FutureCompetitions.Any())
-                {
-                    <div class="scrollable-list">
-                        @foreach (var competition in Model.FutureCompetitions)
-                        {
-                            <a class="competition-card" href="@Url.Action("Details", "Competition", new { id = competition.Id })">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@competition.Name</h5>
-                                        <p class="card-text">@competition.Date.ToString("MMMM dd, yyyy")</p>
-                                    </div>
-                                </div>
-                            </a>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <p>No future competitions available.</p>
-                }
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <i class="fas fa-chart-line fa-3x mb-3 text-success"></i>
+                    <h5 class="card-title">Rankings</h5>
+                    <p class="card-text">See the top armwrestlers based on tournament performance and wins.</p>
+                    <a asp-controller="Ranking" asp-action="Index" class="btn btn-outline-success">
+                        View Rankings
+                    </a>
+                </div>
             </div>
         </div>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                     <div class="card-body">
+                         <i class="fas fa-user-plus fa-3x mb-3 text-info"></i>
+                         <h5 class="card-title">Register</h5>
+                         <p class="card-text">Sign up as a competitor or organizer to join the armwrestling community.</p>
+                         <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-success">
+                             Get Started
+                         </a>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
-
-<style>
-    /* Scrollable container */
-    .scrollable-container {
-        overflow-x: auto;
-        white-space: nowrap;
-        padding-bottom: 20px; /* Ensure there's space for the scrollbar */
-    }
-
-    .scrollable-list {
-        display: flex;
-        gap: 20px;
-    }
-
-    /* Competition card */
-    .competition-card {
-        display: inline-block;
-        width: 250px;
-        height: 150px;
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .card {
-        width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s;
-    }
-
-    .card-body {
-        padding: 10px;
-    }
-
-    .card-title {
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .card-text {
-        font-size: 14px;
-        color: #555;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-</style>

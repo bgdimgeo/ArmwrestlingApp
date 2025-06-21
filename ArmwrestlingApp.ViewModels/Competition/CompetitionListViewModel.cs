@@ -10,5 +10,7 @@ namespace ArmwrestlingApp.ViewModels.Competition
     {
         public IList<CompetitionViewModel> PastCompetitions { get; set; } = new List<CompetitionViewModel>();
         public IList<CompetitionViewModel> FutureCompetitions { get; set; } = new List<CompetitionViewModel>();
+
+        public IList<CompetitionViewModel> OnGoingCompetitions { get; set; } = new List<CompetitionViewModel>();
     }
 }

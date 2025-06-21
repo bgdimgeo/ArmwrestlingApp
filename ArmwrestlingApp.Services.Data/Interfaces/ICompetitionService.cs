@@ -9,10 +9,18 @@ namespace ArmwrestlingApp.Services.Data.Interfaces
 {
     public interface ICompetitionService
     {
-         Task<CompetitionViewModel> GetCompetitionDetailsByIdAsync(Guid id);
+         Task<CompetitionDetailsViewModel> GetCompetitionDetailsByIdAsync(string id);
 
-        Task<IEnumerable<CompetitionViewModel>> IndexGetAllOrderedByDateAsync();
+        Task<CompetitionListViewModel> GetAllCompetitionsOrderedByTypeAsync();
+
+        Task<IEnumerable<CompetitionViewModel>> GetAllCompetitionsOrderedByDateAsync();
 
         Task<bool> AddCompetitionAsync(CompetitionCreateViewModel model);
+
+        Task<CompetitionAddCategoryViewModel> GetCategoriesAsync(string id);
+        
+
+
+        Task<bool> AddCategoriesToCompetionAsync(CompetitionAddCategoryViewModel model);
     }
 }

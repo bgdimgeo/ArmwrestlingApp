@@ -6,8 +6,21 @@
     var competition = Model;
 }
 
-<h2>@competition.Name</h2>
-<h3>📍 @competition.Location &nbsp;&nbsp; 📅 @competition.Date.ToShortDateString() &nbsp;&nbsp; 🏆 @competition.Type</h3>
+<div class="competition-header text-center">
+    <h2>@competition.Name</h2>
+
+    @if (!string.IsNullOrEmpty(competition.ImageUrl))
+    {
+        <img src="@competition.ImageUrl" alt="@competition.Name image" class="competition-image mx-auto" />
+    }
+
+<h3>
+    📍 @competition.Location &nbsp;&nbsp;
+    📅 @competition.StartDate.ToShortDateString() - @competition.EndDate.ToShortDateString() &nbsp;&nbsp;
+    🏆 @competition.Type
+</h3>
+</div>
+
 
 <div class="category-tiles">
     @foreach (var category in Model.Categories)

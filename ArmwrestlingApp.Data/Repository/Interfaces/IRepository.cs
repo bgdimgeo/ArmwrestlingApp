@@ -18,6 +18,8 @@ namespace ArmwrestlingApp.Data.Repository.Interfaces
 
         IQueryable<TType> GetAllAttached();
 
+        IQueryable<TType> GetAllAttachedNoTracking();
+
         void Add(TType item);
 
         Task AddAsync(TType item);

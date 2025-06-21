@@ -4,6 +4,7 @@ using ArmwrestlingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArmwrestlingApp.Data.Migrations
 {
     [DbContext(typeof(ArmwrestlingAppDbContext))]
-    partial class ArmwrestlingAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250616063623_newOne16062025")]
+    partial class newOne16062025
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,19 +97,6 @@ namespace ArmwrestlingApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("Changer_id")
-                        .IsRequired()
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Competition changed by");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Date on which the category was created");
-
-                    b.Property<Guid>("Creator_id")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Competition created by");
-
                     b.Property<int>("Division")
                         .HasColumnType("int")
                         .HasComment("The division of the category-junior, senior, master, grand master, disabled etc");
@@ -119,20 +109,12 @@ namespace ArmwrestlingApp.Data.Migrations
                         .HasColumnType("bit")
                         .HasComment("Category is deleted");
 
-                    b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("The last date on which the cartegory was changed");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Category name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Changer_id");
-
-                    b.HasIndex("Creator_id");
 
                     b.ToTable("Categories");
                 });
@@ -145,8 +127,7 @@ namespace ArmwrestlingApp.Data.Migrations
                         .HasComment("Unique Id of the competition");
 
                     b.Property<Guid?>("Changer_id")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Competition changed by");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2")
@@ -205,8 +186,6 @@ namespace ArmwrestlingApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Changer_id");
-
-                    b.HasIndex("Creator_id");
 
                     b.ToTable("Competitions");
                 });
@@ -465,40 +444,13 @@ namespace ArmwrestlingApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ArmwrestlingApp.Models.Category", b =>
-                {
-                    b.HasOne("ArmwrestlingApp.Models.ApplicationUser", "Changer")
-                        .WithMany()
-                        .HasForeignKey("Changer_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ArmwrestlingApp.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("Creator_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Changer");
-
-                    b.Navigation("Creator");
-                });
-
             modelBuilder.Entity("ArmwrestlingApp.Models.Competition", b =>
                 {
                     b.HasOne("ArmwrestlingApp.Models.ApplicationUser", "Changer")
                         .WithMany()
                         .HasForeignKey("Changer_id");
 
-                    b.HasOne("ArmwrestlingApp.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("Creator_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Changer");
-
-                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("ArmwrestlingApp.Models.CompetitionCategorie", b =>

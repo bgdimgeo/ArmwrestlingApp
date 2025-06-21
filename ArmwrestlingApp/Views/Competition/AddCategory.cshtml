@@ -1,0 +1,69 @@
+﻿@using ArmwrestlingApp.Common.Enums
+@using ArmwrestlingApp.ViewModels.Competition
+@using ArmwrestlingApp.ViewModels.Categorie
+
+@model CompetitionAddCategoryViewModel
+@{
+    ViewData["Title"] = "Add Categories to Competition";
+}
+
+<h2>Add Categories to @Model.Name Competition</h2>
+
+<form asp-action="AddCategory" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Name" />
+
+    <h3>Select Categories:</h3>
+
+    <div class="form-group">
+        @for (int i = 0; i < Model.AddCategoryViewModel.Count(); i++)
+        {
+            var category = Model.AddCategoryViewModel.ElementAt(i);
+              <!-- Get the item by index -->
+
+            <div class="form-check">
+                <!-- Hidden field for CategoryId (ensures it gets posted) -->
+                <input type="hidden" asp-for="AddCategoryViewModel[@i].Id" value="@category.Id" />
+
+                <!-- Hidden field for Category Name (ensures it gets posted) -->
+                <input type="hidden" asp-for="AddCategoryViewModel[@i].Name" value="@category.Name" />
+@* 
+                <!-- Hidden input for Assigned (this will be set to false when unchecked) -->
+                <input type="hidden" name="AddCategoryViewModel[@i].Assigned" value="false" /> *@
+
+
+                <input type="checkbox" asp-for="AddCategoryViewModel[@i].Assigned" class="form-check-input" />
+
+                <!-- Checkbox for Assigned, bound to the value of category.Assigned -->
+@*                 <input type="checkbox"
+                       name="AddCategoryViewModel[@i].Assigned"
+                       class="form-check-input"
+                       checked="@category.Assigned" /> *@
+
+                <label class="form-check-label">
+                    @category.Name -
+                    <strong>@Enum.GetName(typeof(Division), category.Division)</strong> |
+                    <strong>@Enum.GetName(typeof(Gender), category.Gender)</strong>
+
+                    @if (category.Assigned)
+                    {
+                        <span class="badge badge-success ml-2">Assigned</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-warning ml-2">Unassigned</span>
+                    }
+                </label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirm</button>
+</form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

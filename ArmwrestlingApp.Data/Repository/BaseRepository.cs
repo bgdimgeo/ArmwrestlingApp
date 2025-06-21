@@ -68,6 +68,11 @@ namespace ArmwrestlingApp.Data.Repository
             return this.dbSet.AsQueryable();
         }
 
+        public IQueryable<TType> GetAllAttachedNoTracking()
+        {
+            return this.dbSet.AsNoTracking().AsQueryable();
+        }
+
         public void Add(TType item)
         {
             this.dbSet.Add(item);

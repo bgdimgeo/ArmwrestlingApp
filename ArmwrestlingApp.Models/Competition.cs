@@ -48,12 +48,12 @@ namespace ArmwrestlingApp.Models
 
         public Guid Creator_id { get; set; }
 
-        //[Required]
-        //[ForeignKey(nameof(Creator_id))]
-        //public ApplicationUser Creator { get; set; } = null!;
+        [Required]
+        [ForeignKey(nameof(Creator_id))]
+        public ApplicationUser Creator { get; set; } = null!;
 
-        //[Required]
-        //[Comment("Competition changed by")]
+        [Required]
+        [Comment("Competition changed by")]
 
         public Guid? Changer_id { get; set; }
 

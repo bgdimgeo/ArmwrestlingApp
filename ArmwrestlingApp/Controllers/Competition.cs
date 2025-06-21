@@ -15,16 +15,22 @@ namespace ArmwrestlingApp.Controllers
         {
             this.competitionService = _competitionService;
         }
-        public IActionResult Details()
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
         {
-            return View();
+
+            CompetitionDetailsViewModel model = await this.competitionService.GetCompetitionDetailsByIdAsync(id);
+
+
+            return View(model);
         }
 
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            if (IsUserAuthenticated() == false) 
+            if (IsUserAuthenticated() == false)
             {
                 return this.RedirectToAction(nameof(Index));
             }
@@ -32,7 +38,7 @@ namespace ArmwrestlingApp.Controllers
             return this.View();
         }
 
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CompetitionCreateViewModel model)
         {
@@ -47,12 +53,67 @@ namespace ArmwrestlingApp.Controllers
             }
 
 
-            this.competitionService.AddCompetitionAsync(model);
+            await this.competitionService.AddCompetitionAsync(model);
 
-            return this.RedirectToAction(nameof(Index),controllerName:"Home");
+            return this.RedirectToAction(nameof(Index), controllerName: "Home");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> List(IEnumerable<CompetitionViewModel> model)
+        {
+            IEnumerable<CompetitionViewModel> viewModel = await this.competitionService.GetAllCompetitionsOrderedByDateAsync();
 
 
+            return this.View(viewModel);
+        }
 
+
+        [HttpGet]
+        public async Task<IActionResult> All(CompetitionListViewModel model)
+        {
+
+            CompetitionListViewModel viewModel = await this.competitionService.GetAllCompetitionsOrderedByTypeAsync();
+
+            if (viewModel == null)
+            {
+                return this.RedirectToAction(nameof(Index), controllerName: "Home");
+            }
+            return this.View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddCategory(string id)
+        {
+
+            CompetitionAddCategoryViewModel viewModel = await this.competitionService.GetCategoriesAsync(id);
+
+            if (viewModel == null)
+            {
+                return this.RedirectToAction(nameof(List));
+            }
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddCategory(CompetitionAddCategoryViewModel model)
+        {
+
+            if (IsUserAuthenticated() == false)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+
+            await this.competitionService.AddCategoriesToCompetionAsync(model);
+
+            return this.RedirectToAction(nameof(List));
         }
     }
 }

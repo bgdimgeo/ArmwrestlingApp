@@ -1,0 +1,54 @@
+﻿@using ArmwrestlingApp.ViewModels.Competition;
+
+@model IEnumerable<CompetitionViewModel>
+
+@{
+    ViewData["Title"] = "Competitions";
+}
+
+<h2>Competitions</h2>
+
+<p>
+    <a asp-controller="Competition" asp-action="Create" class="btn btn-primary">Create New Competition</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Type</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var competition in Model)
+        {
+            <tr>
+                <td>@competition.Name</td>
+                <td>@competition.Location</td>
+                <td>@competition.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@competition.EndDate.ToString("yyyy-MM-dd")</td>
+                <td>@competition.Type</td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(competition.ImageUrl))
+                    {
+                        <img src="@competition.ImageUrl" alt="Image for @competition.Name" style="max-height: 80px;" />
+                    }
+                    else
+                    {
+                        <span>No image</span>
+                    }
+                </td>
+                <td>
+                    <a asp-controller="Competition" asp-action="Edit" asp-route-id="@competition.Id" class="btn btn-sm btn-secondary">Edit</a>
+                    <a asp-controller="Competition" asp-action="Delete" asp-route-id="@competition.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <a asp-controller="Competition" asp-action="AddCategory" asp-route-id="@competition.Id" class="btn btn-sm btn-success">Add Categories</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
