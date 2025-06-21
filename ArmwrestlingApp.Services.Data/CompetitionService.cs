@@ -265,5 +265,78 @@ namespace ArmwrestlingApp.Services.Data
 
             return true;
         }
+
+        public async Task<CompetitionEditViewModel?> EditCompetitionAsync(string id)
+        {
+            Guid competitionGuid = Guid.Empty;
+
+            if (!this.IsGuidValid(id, ref competitionGuid))
+            {
+                return null;
+            }
+
+            Competition competition = await this.competitionRepository.GetByIdAsync(competitionGuid);
+            if (competition == null) 
+            {
+                return null;
+            }
+
+            CompetitionEditViewModel competitionEditViewModel = new CompetitionEditViewModel() 
+            {
+                 Id = competition.Id.ToString(),
+                 Name = competition.Name,
+                 Description = competition.Description,
+                 StartDate = competition.StartDate,
+                 EndDate = competition.EndDate,
+                 ImageUrl  = competition.ImageUrl,
+                 Location = competition.Location,
+                 Type = competition.Type
+            };
+
+            return competitionEditViewModel;
+        }
+
+        public async Task<bool> EditCompetitionAsync(CompetitionEditViewModel model)
+        {
+            Guid competitionGuid = Guid.Empty;
+
+
+            if (!this.IsGuidValid(model.Id, ref competitionGuid))
+            {
+                return false;
+            }
+
+            // Get user id 
+            Guid userId = await GetCurrentUserIdAsync();
+
+            if (userId == Guid.Empty)
+            {
+                return false;
+            }
+
+
+            Competition competition = await this.competitionRepository.GetByIdAsync(competitionGuid);
+            if (competition == null)
+            {
+                return false;
+            }
+
+            competition.Name = model.Name;
+            competition.Description = model.Description;
+            competition.StartDate = model.StartDate;  
+            competition.EndDate = model.EndDate;
+            competition.ImageUrl = model.ImageUrl;
+            competition.Location = model.Location;
+            competition.Type = model.Type;
+            competition.Changer_id = userId;
+            competition.LastChangeDate = DateTime.Now;
+
+            await this.competitionRepository.UpdateAsync(competition);    
+
+            return true;
+
+
+
+        }
     }
 }

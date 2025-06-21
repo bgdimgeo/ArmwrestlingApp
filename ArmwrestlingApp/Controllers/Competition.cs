@@ -115,5 +115,42 @@ namespace ArmwrestlingApp.Controllers
 
             return this.RedirectToAction(nameof(List));
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+
+            CompetitionEditViewModel viewModel = await this.competitionService.EditCompetitionAsync(id);
+
+            if (viewModel == null)
+            {
+                return this.RedirectToAction(nameof(List));
+            }
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(CompetitionEditViewModel model)
+        {
+
+            if (IsUserAuthenticated() == false)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+
+            await this.competitionService.EditCompetitionAsync(model);
+
+            return this.RedirectToAction(nameof(List));
+        }
+
+
     }
 }

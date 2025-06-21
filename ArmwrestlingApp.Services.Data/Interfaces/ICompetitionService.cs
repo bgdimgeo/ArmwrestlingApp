@@ -22,5 +22,10 @@ namespace ArmwrestlingApp.Services.Data.Interfaces
 
 
         Task<bool> AddCategoriesToCompetionAsync(CompetitionAddCategoryViewModel model);
+
+
+        Task<CompetitionEditViewModel?> EditCompetitionAsync(string id);
+
+        Task<bool> EditCompetitionAsync(CompetitionEditViewModel model);
     }
 }

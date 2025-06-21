@@ -9,7 +9,7 @@
 
 <h2>Add Categories to @Model.Name Competition</h2>
 
-<form asp-action="AddCategory" method="post">
+<form asp-action="AddCategory" method="post" asp-antiforgery="true">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="Name" />
 
@@ -34,11 +34,6 @@
 
                 <input type="checkbox" asp-for="AddCategoryViewModel[@i].Assigned" class="form-check-input" />
 
-                <!-- Checkbox for Assigned, bound to the value of category.Assigned -->
-@*                 <input type="checkbox"
-                       name="AddCategoryViewModel[@i].Assigned"
-                       class="form-check-input"
-                       checked="@category.Assigned" /> *@
 
                 <label class="form-check-label">
                     @category.Name -
