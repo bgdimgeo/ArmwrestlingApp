@@ -4,6 +4,7 @@ using ArmwrestlingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArmwrestlingApp.Data.Migrations
 {
     [DbContext(typeof(ArmwrestlingAppDbContext))]
-    partial class ArmwrestlingAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250623193839_ExtendTeam")]
+    partial class ExtendTeam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,10 +320,6 @@ namespace ArmwrestlingApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Name of the Country in which the team is");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Url of the game image");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")

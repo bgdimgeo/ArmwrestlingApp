@@ -6,8 +6,6 @@ namespace ArmwrestlingApp.Models
 {
     public class CompetitionCategorie
     {
-        [Key]
-        public Guid Id { get; set; } = new Guid();
 
         [Comment("Id of the competition")]
         public Guid CompetitionId { get; set; }

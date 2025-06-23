@@ -47,7 +47,7 @@ namespace ArmwrestlingApp.Data.Repository
 
         public async Task<TType> FirstOrDefaultAsync(Expression<Func<TType, bool>> predicate)
         {
-            TType? entity = await this.dbSet
+            TType? entity = await this.dbSet.IgnoreQueryFilters()
                 .FirstOrDefaultAsync(predicate);
 
             return entity;

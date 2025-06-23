@@ -14,6 +14,18 @@ namespace ArmwrestlingApp.Data.Configuration
         public void Configure(EntityTypeBuilder<CompetitionCategorie> builder)
         {
             builder.HasKey(c => new { c.CategoryId, c.CompetitionId });
+
+
+
+             builder.HasOne(ur => ur.Category)
+             .WithMany(u => u.CompetitionsCategories)
+             .HasForeignKey(ur => ur.CategoryId);
+
+            builder
+                .HasOne(ur => ur.Competition)
+                .WithMany(r => r.CompetitionsCategories)
+                .HasForeignKey(ur => ur.CompetitionId);
+
             builder.HasQueryFilter(c => !c.IsDeleted);
 
         }

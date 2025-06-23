@@ -4,6 +4,7 @@ using ArmwrestlingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArmwrestlingApp.Data.Migrations
 {
     [DbContext(typeof(ArmwrestlingAppDbContext))]
-    partial class ArmwrestlingAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250623195238_ExtendTeam2")]
+    partial class ExtendTeam2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

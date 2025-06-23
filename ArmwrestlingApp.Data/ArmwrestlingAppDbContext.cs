@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ArmwrestlingApp.Data.Configuration;
 using ArmwrestlingApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -31,8 +32,17 @@ namespace ArmwrestlingApp.Data
         public virtual DbSet<Team> Teams { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            base.OnModelCreating(modelBuilder);
+        }
+        
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

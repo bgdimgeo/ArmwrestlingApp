@@ -20,11 +20,11 @@ namespace ArmwrestlingApp.Services.Data
     {
         private readonly IRepository<Competition, Guid> competitionRepository;
         private readonly IRepository<Category, Guid> categoryRepository;
-        private readonly IRepository<CompetitionCategorie, Guid> competitionCategorieRepository;
+        private readonly IRepository<CompetitionCategorie, object> competitionCategorieRepository;
 
 
         public CompetitionService(IRepository<Competition, Guid> _competitionRepository, IRepository<Category, Guid> _categoryRepository,
-            IRepository<CompetitionCategorie, Guid> _competitionCategorieRepository,
+            IRepository<CompetitionCategorie, object> _competitionCategorieRepository,
             UserManager<ApplicationUser> _userManager, IHttpContextAccessor _httpContextAccessor) :
             base(_httpContextAccessor, _userManager)
         {
@@ -80,6 +80,7 @@ namespace ArmwrestlingApp.Services.Data
             Competition? competition = await this.competitionRepository.GetAllAttachedNoTracking()
                 .Include(c => c.CompetitionCategoriesCompetitors).ThenInclude(c => c.Competitor)
                 .Include(c => c.CompetitionCategoriesCompetitors).ThenInclude(c => c.Category)
+                .Include(c => c.CompetitionsCategories).ThenInclude(c => c.Category)
                 .FirstOrDefaultAsync(c => c.Id == parsedGuid);
 
             CompetitionDetailsViewModel competitionViewModel = null;
@@ -95,18 +96,27 @@ namespace ArmwrestlingApp.Services.Data
                     StartDate = competition.StartDate,
                     EndDate = competition.EndDate,
                     ImageUrl = competition.ImageUrl,
-                    Categories = competition.CompetitionCategoriesCompetitors.GroupBy(cc => cc.Category).Select(cc => new CategoriesDetailsViewModel()
+                    Categories = competition.CompetitionsCategories.Select(cc => new CategoriesDetailsViewModel()
                     {
-                        Id = cc.Key.Id.ToString(),
-                        Name = cc.Key.Name,
-                        ParticipantsCount = cc.Select(x => x.CompetitorId).Distinct().Count()
+                        Id = cc.Category.Id.ToString(),
+                        Name = cc.Category.Name,
+                        Division = cc.Category.Division,
+                        Gender = cc.Category.Gender,
+                        ParticipantsCount = cc.Category.CompetitionCategoriesCompetitors.Count()
 
-                    })
+                    }).OrderBy(c=>c.Division).ThenBy(c=>c.Gender).ThenBy(c => ExtractNumber(c.Name)).ToList()
 
                 };
             }
 
             return competitionViewModel;
+        }
+
+        private int ExtractNumber(string input)
+        {
+            // Extract the first number from a string like "+65kg" or "-100kg"
+            var match = System.Text.RegularExpressions.Regex.Match(input, @"\d+");
+            return match.Success ? int.Parse(match.Value) : 0;
         }
 
         public async Task<CompetitionListViewModel> GetAllCompetitionsOrderedByTypeAsync()

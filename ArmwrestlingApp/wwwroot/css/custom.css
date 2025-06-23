@@ -20,6 +20,8 @@
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    justify-content: center; /* This centers the tiles horizontally */
+    gap: 1rem; /* Optional: adds space between tiles */
 }
 
     .category-tile h4 {

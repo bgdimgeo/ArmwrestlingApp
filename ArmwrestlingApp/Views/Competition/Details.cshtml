@@ -27,6 +27,7 @@
     {
         <div class="category-tile">
             <h4>@category.Name</h4>
+            <p>@category.Division @category.Gender</p>
             <p>@category.ParticipantsCount participants</p>
             <a asp-page="/CategoryDetails" asp-route-id="@category.Id" class="btn btn-primary">View Competitors</a>
         </div>

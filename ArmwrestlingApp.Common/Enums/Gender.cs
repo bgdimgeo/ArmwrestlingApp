@@ -8,7 +8,7 @@ namespace ArmwrestlingApp.Common.Enums
 {
     public enum Gender
     {
-        Female = 0,
-        Male = 1
+        Women = 0,
+        Men = 1
     }
 }

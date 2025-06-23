@@ -12,9 +12,7 @@ namespace ArmwrestlingApp.Models
     public class CompetitionCategorieCompetitor
     {
 
-        [Key]
-        [Comment("Unquq Id of the entry")]
-        public Guid Id { get; set; } = new Guid();
+        
 
         [Comment("Id of the competition")]
         public Guid CompetitionId { get; set; }
